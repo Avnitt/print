@@ -1,3 +1,4 @@
+import PyPDF2
 from rest_framework import serializers
 
 from .models import Order, File
@@ -6,7 +7,7 @@ from .models import Order, File
 class FileS(serializers.ModelSerializer):
     class Meta:
         model = File
-        fields = '__all__'
+        fields = ['pdf', 'order']
 
 
 class GetOrderS(serializers.ModelSerializer):
@@ -14,15 +15,10 @@ class GetOrderS(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['name', 'phone', 'block', 'service_type', 'option', 'day', 'time', 'note', 'files']
+        fields = ['name', 'phone', 'block', 'service_type', 'option', 'day', 'time', 'note', 'files', 'amount']
 
 
 class CreateOrderS(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['name', 'phone', 'block', 'service_type', 'option', 'day', 'time', 'note']
-
-
-    def update(self, instance, validated_data):
-        # Add code for verifying the payment using gateway methods and updating the extra gateway fields
-        pass
